@@ -1,0 +1,23 @@
+{
+	"name": "gozoro/yii2-background-jobs",
+	"description": "Background jobs for Yii2.",
+	"keywords":["yii2", "background", "job", "jobs", "task", "background-job", "background-task", "background-jobs", "background-tasks"],
+	"homepage": "https://github.com/gozoro/yii2-background-jobs",
+	"type": "yii2-extension",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Gozoro",
+			"email": "gozoro@yandex.ru"
+		}
+	],
+	"require": {
+		"php": ">=5.5.9",
+		"yiisoft/yii2": "~2.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"gozoro\\background\\": "src"
+		}
+	}
+}
