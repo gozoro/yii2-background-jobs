@@ -7,7 +7,7 @@ use gozoro\background\models\BackgroundJob;
 
 /**
  * Abstract job controller.
- * Use command "job/run" for execute your background job.
+ * Use command "./yii job/run $jobfile &" for execute your background job.
  *
  */
 abstract class JobController extends \yii\console\Controller
