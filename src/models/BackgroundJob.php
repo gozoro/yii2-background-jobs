@@ -28,7 +28,10 @@ abstract class BackgroundJob
 
 
 
-
+	/**
+	 * Creates background job.
+	 * @param array $params
+	 */
 	public function __construct(array $params = [])
 	{
 		Yii::configure($this, $params);
@@ -53,12 +56,21 @@ abstract class BackgroundJob
 		return $this->_id;
 	}
 
+	/**
+	 * Returns created background job date.
+	 * @param string $format php date format
+	 * @return string
+	 */
 	public function getCreateDate($format = 'Y-m-d H:i:s')
 	{
 		return date($format, $this->_createTs);
 	}
 
-
+	/**
+	 * Returns the start date of the background job.
+	 * @param string $format php date format
+	 * @return string
+	 */
 	public function getRunDate($format = 'Y-m-d H:i:s')
 	{
 		if($this->_runTs)
@@ -69,6 +81,11 @@ abstract class BackgroundJob
 			return null;
 	}
 
+	/**
+	 * Returns the end date of the background job.
+	 * @param string $format php date format
+	 * @return string
+	 */
 	public function getFinishDate($format = 'Y-m-d H:i:s')
 	{
 		if($this->_finishTs)
@@ -79,18 +96,29 @@ abstract class BackgroundJob
 			return null;
 	}
 
+	/**
+	 * Returns the status of the background job (self::STATUS_...).
+	 * @return string
+	 */
 	public function getStatus()
 	{
 		return $this->_status;
 	}
 
+	/**
+	 * Returns error message.
+	 * @return null|string
+	 */
 	public function getErrorMessage()
 	{
 		return $this->_errorMessage;
 	}
 
 
-
+	/**
+	 * Creates a background job file.
+	 * @param string $jobfile path to job file
+	 */
 	public function beginJob($jobfile)
 	{
 		$this->_status = self::STATUS_RUNNING;
@@ -99,6 +127,12 @@ abstract class BackgroundJob
 		file_put_contents($jobfile, serialize($this), LOCK_EX);
 	}
 
+	/**
+	 * Adds an error or success status to the background job file.
+	 * @param string $jobfile path to job file
+	 * @param bool $isSuccess indicates that the background job was completed successfully
+	 * @param string $errorMessage error message if the job failed
+	 */
 	public function endJob($jobfile, $isSuccess=true, $errorMessage=null)
 	{
 		$this->_finishTs = time();
@@ -116,10 +150,8 @@ abstract class BackgroundJob
 		file_put_contents($jobfile, serialize($this), LOCK_EX);
 	}
 
-
-
-
-
+	/**
+	 * Job execution.
+	 */
 	abstract public function run();
-
 }
