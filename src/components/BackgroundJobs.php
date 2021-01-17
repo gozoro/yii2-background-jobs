@@ -1,6 +1,6 @@
 <?php
 
-namespace gozoro\background\models;
+namespace gozoro\background\components;
 
 use Yii;
 use gozoro\background\models\BackgroundJob;
